@@ -8,7 +8,8 @@ public class PlayerControllerX : MonoBehaviour
 
     public float floatForce;
     private float gravityModifier = 1.5f;
-    public Rigidbody playerRb;
+    private float upperBound = 14;
+    private Rigidbody playerRb;
 
     public ParticleSystem explosionParticle;
     public ParticleSystem fireworksParticle;
@@ -59,6 +60,12 @@ public class PlayerControllerX : MonoBehaviour
             playerAudio.PlayOneShot(moneySound, 1.0f);
             Destroy(other.gameObject);
 
+        }
+
+        if (transform.position.y > upperBound)
+        {
+            transform.position = new Vector3(transform.position.x, upperBound, transform.position.z);
+            playerRb.velocity = new Vector3(0, 0, 0);
         }
 
     }
